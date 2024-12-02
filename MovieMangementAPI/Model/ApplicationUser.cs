@@ -12,7 +12,7 @@ namespace MovieMangementAPI.Model
         {
 
 
-            Active = false;
+            Active = true;
         }
         public string Mobile { get; set; }
     }
