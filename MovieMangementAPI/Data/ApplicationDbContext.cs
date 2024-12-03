@@ -18,6 +18,6 @@ namespace MovieMangementAPI
 
         }
        public  DbSet<ApplicationUser> ApplicationUsers { get; set; }
-      
+        public DbSet<Cinema> Cinemas { get; set; }
     }
 }
