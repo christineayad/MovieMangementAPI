@@ -11,5 +11,6 @@
         public virtual ShowTime? ShowTime { get; set; }
         public int SeatId { get; set; }
         public virtual Seat? Seat { get; set; }
+        public decimal TotalPrice { get; set; }
     }
 }
