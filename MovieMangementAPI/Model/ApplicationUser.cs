@@ -15,5 +15,6 @@ namespace MovieMangementAPI.Model
             Active = true;
         }
         public string Mobile { get; set; }
+        public ICollection<Reservation> Reservations { get; set; }
     }
 }
