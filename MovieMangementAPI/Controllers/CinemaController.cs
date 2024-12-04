@@ -57,9 +57,7 @@ namespace MovieMangementAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCinema(int id, [FromBody] Cinemadto cinema)
         {
-            if (id != cinema.Id)
-                return BadRequest("cinema ID mismatch.");
-
+         
             var existingcinema = await _context.Cinemas.FindAsync(id);
             if (existingcinema == null)
                 return NotFound("Cinema not found.");
