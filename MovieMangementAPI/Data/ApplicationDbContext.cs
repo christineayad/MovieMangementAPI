@@ -20,5 +20,9 @@ namespace MovieMangementAPI
         public  DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Cinema> Cinemas { get; set; }
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<Hall> Halls { get; set; }
+        public DbSet<ShowTime> ShowTimes { get; set; }
+        public DbSet<Seat> Seats { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
     }
 }

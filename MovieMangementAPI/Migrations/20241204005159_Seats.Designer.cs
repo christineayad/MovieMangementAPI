@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieMangementAPI;
 
@@ -11,9 +12,11 @@ using MovieMangementAPI;
 namespace MovieMangementAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241204005159_Seats")]
+    partial class Seats
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -305,43 +308,6 @@ namespace MovieMangementAPI.Migrations
                     b.ToTable("Movies");
                 });
 
-            modelBuilder.Entity("MovieMangementAPI.Model.Reservation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("ResearvedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("SeatId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ShowTimeId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("userId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("SeatId");
-
-                    b.HasIndex("ShowTimeId");
-
-                    b.ToTable("Reservations");
-                });
-
             modelBuilder.Entity("MovieMangementAPI.Model.Seat", b =>
                 {
                     b.Property<int>("Id")
@@ -349,9 +315,6 @@ namespace MovieMangementAPI.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("HallId")
-                        .HasColumnType("int");
 
                     b.Property<bool>("IsReserved")
                         .HasColumnType("bit");
@@ -363,8 +326,6 @@ namespace MovieMangementAPI.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("HallId");
 
                     b.HasIndex("ShowtimeId");
 
@@ -379,10 +340,7 @@ namespace MovieMangementAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CinemaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("HallId")
+                    b.Property<int?>("HallId")
                         .HasColumnType("int");
 
                     b.Property<int>("MovieId")
@@ -395,8 +353,6 @@ namespace MovieMangementAPI.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CinemaId");
 
                     b.HasIndex("HallId");
 
@@ -474,63 +430,22 @@ namespace MovieMangementAPI.Migrations
                         .HasForeignKey("CinemaId");
                 });
 
-            modelBuilder.Entity("MovieMangementAPI.Model.Reservation", b =>
-                {
-                    b.HasOne("MovieMangementAPI.Model.ApplicationUser", "ApplicationUser")
-                        .WithMany("Reservations")
-                        .HasForeignKey("ApplicationUserId");
-
-                    b.HasOne("MovieMangementAPI.Model.Seat", "Seat")
-                        .WithMany()
-                        .HasForeignKey("SeatId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MovieMangementAPI.Model.ShowTime", "ShowTime")
-                        .WithMany()
-                        .HasForeignKey("ShowTimeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
-
-                    b.Navigation("Seat");
-
-                    b.Navigation("ShowTime");
-                });
-
             modelBuilder.Entity("MovieMangementAPI.Model.Seat", b =>
                 {
-                    b.HasOne("MovieMangementAPI.Model.Hall", "Hall")
-                        .WithMany()
-                        .HasForeignKey("HallId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("MovieMangementAPI.Model.ShowTime", "Showtime")
                         .WithMany("AvailableSeats")
                         .HasForeignKey("ShowtimeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Hall");
-
                     b.Navigation("Showtime");
                 });
 
             modelBuilder.Entity("MovieMangementAPI.Model.ShowTime", b =>
                 {
-                    b.HasOne("MovieMangementAPI.Model.Cinema", "Cinema")
-                        .WithMany()
-                        .HasForeignKey("CinemaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MovieMangementAPI.Model.Hall", "Hall")
+                    b.HasOne("MovieMangementAPI.Model.Hall", null)
                         .WithMany("ShowTimes")
-                        .HasForeignKey("HallId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("HallId");
 
                     b.HasOne("MovieMangementAPI.Model.Movie", "Movie")
                         .WithMany("ShowTime")
@@ -538,16 +453,7 @@ namespace MovieMangementAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Cinema");
-
-                    b.Navigation("Hall");
-
                     b.Navigation("Movie");
-                });
-
-            modelBuilder.Entity("MovieMangementAPI.Model.ApplicationUser", b =>
-                {
-                    b.Navigation("Reservations");
                 });
 
             modelBuilder.Entity("MovieMangementAPI.Model.Cinema", b =>

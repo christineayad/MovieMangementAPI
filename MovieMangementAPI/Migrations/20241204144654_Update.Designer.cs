@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieMangementAPI;
 
@@ -11,9 +12,11 @@ using MovieMangementAPI;
 namespace MovieMangementAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241204144654_Update")]
+    partial class Update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -339,7 +342,7 @@ namespace MovieMangementAPI.Migrations
 
                     b.HasIndex("ShowTimeId");
 
-                    b.ToTable("Reservations");
+                    b.ToTable("Reservation");
                 });
 
             modelBuilder.Entity("MovieMangementAPI.Model.Seat", b =>
@@ -382,7 +385,7 @@ namespace MovieMangementAPI.Migrations
                     b.Property<int>("CinemaId")
                         .HasColumnType("int");
 
-                    b.Property<int>("HallId")
+                    b.Property<int?>("HallId")
                         .HasColumnType("int");
 
                     b.Property<int>("MovieId")
@@ -526,11 +529,9 @@ namespace MovieMangementAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MovieMangementAPI.Model.Hall", "Hall")
+                    b.HasOne("MovieMangementAPI.Model.Hall", null)
                         .WithMany("ShowTimes")
-                        .HasForeignKey("HallId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("HallId");
 
                     b.HasOne("MovieMangementAPI.Model.Movie", "Movie")
                         .WithMany("ShowTime")
@@ -539,8 +540,6 @@ namespace MovieMangementAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("Cinema");
-
-                    b.Navigation("Hall");
 
                     b.Navigation("Movie");
                 });

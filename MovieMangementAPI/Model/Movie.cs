@@ -19,7 +19,7 @@
         public string Name { get; set; }
         public Genre Genre { get; set; }
         public string Description { get; set; }
-        //public ICollection<ShowTime> ShowTime { get; set; }
+        public ICollection<ShowTime> ShowTime { get; set; }
 
     }
 }
