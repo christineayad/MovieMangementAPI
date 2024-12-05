@@ -15,7 +15,7 @@ namespace MovieMangementAPI.Controllers
         {
             _context = context;
         }
-        [HttpGet("halls")]
+        [HttpGet("[Action]")]
         public async Task<IActionResult> GetHallByShowtime(int showtimeId)
         {
             var hall = await _context.ShowTimes
@@ -33,7 +33,7 @@ namespace MovieMangementAPI.Controllers
             return Ok(hall);
         }
 
-        [HttpGet]
+        [HttpGet("[Action]")]
         public async Task<IActionResult> GetAll()
         {
             var Halls = await _context.Halls.ToListAsync();

@@ -20,7 +20,7 @@ namespace MovieMangementAPI.Controllers
             _context = context;
         }
         // GET: api/<CinemaController>
-        [HttpGet]
+        [HttpGet("[Action]")]
         public async Task<IActionResult> GetAll()
         {
             var Cinemas = await _context.Cinemas.ToListAsync();

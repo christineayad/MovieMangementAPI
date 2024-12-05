@@ -37,7 +37,7 @@ namespace MovieMangementAPI.Controllers
             return Ok(availableSeats);
         }
 
-        [HttpGet]
+        [HttpGet("[Action]")]
         public async Task<IActionResult> GetAll()
         {
             var Seats = await _context.Seats.ToListAsync();

@@ -16,7 +16,7 @@ namespace MovieMangementAPI.Controllers
         {
             _context = context;
         }
-        [HttpGet("showtimes")]
+        [HttpGet("[Action]")]
         public async Task<IActionResult> GetShowtimes(int cinemaId, int movieId)
         {
             var showtimes = await _context.ShowTimes
@@ -35,14 +35,14 @@ namespace MovieMangementAPI.Controllers
             return Ok(showtimes);
         }
 
-        [HttpGet]
+        [HttpGet("[Action]")]
         public async Task<IActionResult> GetAll()
         {
             var showtimes = await _context.ShowTimes.ToListAsync();
             return Ok(showtimes);
         }
 
-        // GET api/<CinemaController>/5
+  
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {

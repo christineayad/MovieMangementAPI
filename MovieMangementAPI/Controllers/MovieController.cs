@@ -15,15 +15,14 @@ namespace MovieMangementAPI.Controllers
         {
             _context = context;
         }
-        // GET: api/<CinemaController>
-        [HttpGet]
+      
+        [HttpGet("[Action]")]
         public async Task<IActionResult> GetAll()
         {
             var Movies = await _context.Movies.ToListAsync();
             return Ok(Movies);
         }
 
-        // GET api/<CinemaController>/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -32,7 +31,7 @@ namespace MovieMangementAPI.Controllers
                 return NotFound("Movie Not Found");
             return Ok(Movie);
         }
-        [HttpGet("movies")]
+        [HttpGet("[Action]")]
         public async Task<IActionResult> GetMoviesByCinema(int cinemaId)
         {
             var movies = await _context.ShowTimes
@@ -44,7 +43,7 @@ namespace MovieMangementAPI.Controllers
             return Ok(movies);
         }
 
-        // POST api/<CinemaController>
+  
         [HttpPost("[Action]")]
         public async Task<IActionResult> Create(Moviedto movie)
         {
@@ -63,7 +62,7 @@ namespace MovieMangementAPI.Controllers
             return BadRequest(ModelState);
         }
 
-        // PUT api/<CinemaController>/5
+    
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateMovie(int id, [FromBody] Moviedto movie)
         {
@@ -82,7 +81,7 @@ namespace MovieMangementAPI.Controllers
             return NoContent();
         }
 
-        // DELETE api/<CinemaController>/5
+    
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMovie(int id)
         {
