@@ -32,17 +32,17 @@ namespace MovieMangementAPI.Controllers
                 return NotFound("Movie Not Found");
             return Ok(Movie);
         }
-        //[HttpGet("movies")]
-        //public async Task<IActionResult> GetMoviesByCinema(int cinemaId)
-        //{
-        //    var movies = await _context.ShowTimes
-        //        .Where(st => st.CinemaID == cinemaId)
-        //        .Select(st => st.Movie)
-        //        .Distinct()
-        //        .Select(m => new { m.Id, m.Name })
-        //        .ToListAsync();
-        //    return Ok(movies);
-        //}
+        [HttpGet("movies")]
+        public async Task<IActionResult> GetMoviesByCinema(int cinemaId)
+        {
+            var movies = await _context.ShowTimes
+                .Where(st => st.CinemaId == cinemaId)
+                .Select(st => st.Movie)
+                .Distinct()
+                .Select(m => new { m.Id, m.Name })
+                .ToListAsync();
+            return Ok(movies);
+        }
 
         // POST api/<CinemaController>
         [HttpPost("[Action]")]

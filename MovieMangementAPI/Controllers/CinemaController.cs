@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieMangementAPI.DTO;
 //using MovieMangementAPI.Migrations;
@@ -10,6 +11,7 @@ namespace MovieMangementAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CinemaController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
